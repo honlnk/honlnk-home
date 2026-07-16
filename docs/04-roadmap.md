@@ -23,10 +23,12 @@
 
 ### 任务清单
 
-- [ ] 初始化 Astro 项目（`npm create astro@latest`）
-- [ ] 安装核心集成：
+- [ ] 初始化 Astro 项目（`pnpm create astro@latest`）
+- [ ] 安装核心依赖：
   - `@astrojs/vue`（Vue 组件支持）
-  - `@astrojs/tailwind` 或 Tailwind v4 Vite 插件
+  - `tailwindcss` + `@tailwindcss/vite`（Tailwind v4 Vite 插件）
+  - `sass`（SCSS 编译支持，Astro 原生集成）
+  - `@astrojs/check` + `typescript`（类型检查）
 - [ ] 建立目录结构：
   ```
   src/
@@ -38,16 +40,20 @@
   │   ├── ProjectCard.astro
   │   ├── Projects.astro
   │   ├── Skills.astro
-  │   └── Contact.astro
+  │   ├── Contact.astro
+  │   └── ThemeToggle.vue     ← 主题切换（Vue 岛屿，client:load）
   ├── data/
   │   └── projects.ts         ← 项目数据（集中管理）
   ├── pages/
   │   └── index.astro         ← 首页（组装各板块）
   └── styles/
-      └── global.css          ← 全局样式 + CSS 变量
+      ├── global.scss         ← 全局样式 + 主题变量（亮/暗）
+      ├── _tokens.scss        ← SCSS 变量、mixin（间距/字体）
+      └── _theme.scss         ← data-theme 亮暗色变量定义
   ```
-- [ ] 配置基础 `Layout.astro`（meta、SEO 标签、字体引入）
-- [ ] 确认 `npm run dev` 正常启动
+- [ ] 配置主题切换机制（`<html data-theme>` + `localStorage` + `prefers-color-scheme`）
+- [ ] 配置基础 `Layout.astro`（meta、SEO 标签、字体引入、防主题闪烁脚本）
+- [ ] 确认 `pnpm dev` 正常启动
 
 ### 产出
 一个空白但能跑的 Astro 项目。
@@ -61,12 +67,13 @@
 
 ### 任务清单
 
-- [ ] **Hero**：名字、定位、bio、3 个 CTA 按钮
+- [ ] **Hero**：名字、定位、bio、3 个 CTA 按钮、GitHub 头像
 - [ ] **About**：一段话 + 5 个标签
 - [ ] **Projects**：6 张项目卡片（数据从 `data/projects.ts` 读取）
   - 数据字段：name, desc, tech[], stars, forks, url, demo?
 - [ ] **Skills**：四行分类标签
 - [ ] **Contact**：GitHub / 博客 / 邮箱 + Footer
+- [ ] **主题切换开关**：右上角 ThemeToggle.vue，亮/暗切换 + 记忆
 - [ ] 移动端基础适配（单列布局）
 
 ### 数据准备
@@ -155,15 +162,15 @@ export const projects = [
 
 ---
 
-## 关键决策点（动手前需确认）
+## 关键决策点（已全部敲定 ✅）
 
-> 这些在进入阶段 0 之前敲定，避免返工。
-
-1. **强调色**：青绿 `#00d4aa` 还是其他？（见 [设计规范](./03-design-system.md#强调色accent)）
-2. **是否做亮色模式**：首版只做深色，还是双模式？
-3. **Hero 动态背景**：要还是不要？
-4. **头像/Logo**：用 GitHub avatar、自绘、还是纯文字 Logo？
-5. **仓库策略**：新建 `honlnk-home`，还是复用 `honlnk` profile 仓库？
+1. **强调色**：✅ 青绿 `#00d4aa`（深色）/ `#10b981`（亮色）
+2. **主题模式**：✅ 亮/暗双主题，默认深色，右上角切换，记忆选择
+3. **Hero 背景**：✅ 静态纯色，不加动态背景
+4. **头像/Logo**：✅ GitHub 头像
+5. **仓库**：✅ 新建 `honlnk-home`（已创建并推送）
+6. **包管理器**：✅ pnpm
+7. **样式方案**：✅ Tailwind（行内）+ SCSS（复杂样式）双轨
 
 ---
 

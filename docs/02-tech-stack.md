@@ -4,14 +4,30 @@
 
 ## 决策结论
 
-**采用 Astro 作为首页框架**，交互组件用 Vue3，样式用 Tailwind CSS。
+**采用 Astro 作为首页框架**，交互组件用 Vue3，样式用 Tailwind + SCSS 混合方案，包管理用 pnpm。
 
 ```
 Astro（内容/性能底座）
-  └─ Vue3（写交互岛屿，复用现有技能）
-  └─ Tailwind CSS（原子化样式）
+  ├─ Vue3（写交互岛屿，复用现有技能）
+  ├─ Tailwind CSS（简单样式，写行内 class）
+  ├─ SCSS（复杂样式，抽离成 .scss 文件）
+  ├─ pnpm（包管理）
   └─ GitHub Pages（部署，与现有体系一致）
 ```
+
+### 样式策略：Tailwind + SCSS 双轨
+
+两种工具各司其职，不混用、不强求统一：
+
+| 场景 | 用什么 | 示例 |
+|---|---|---|
+| 简单原子样式（间距、对齐、响应式）| **Tailwind 行内 class** | `<div class="flex gap-4 p-6">` |
+| 复杂样式（嵌套、变量、主题、动画）| **SCSS 文件** | `@use '../styles/hero.scss'` |
+
+原则：
+- 能用 Tailwind utility 搞定的，就写行内 class，快。
+- 涉及嵌套选择器、`@mixin`、`@include`、多行动画 `@keyframes` 的，抽到 SCSS。
+- 主题切换（亮/暗）的 CSS 变量统一在 SCSS 里用 `[data-theme]` 选择器管理。
 
 ---
 
@@ -166,9 +182,11 @@ const projects = [{ name: 'NovAI', stars: 5 }]
 
 ## 版本基线
 
+- **包管理器**：pnpm（速度快、磁盘节省，锁定 `pnpm-lock.yaml`）
 - Astro：**5.x**（当前稳定，支持 Server Islands、View Transitions）
 - Vue：**3.x**
 - Tailwind：**4.x**
+- SCSS：通过 `sass` 包支持，Astro 原生编译 `.scss`
 - Node：**>= 20**
 
 ---
