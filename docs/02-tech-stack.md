@@ -29,6 +29,7 @@ Astro（内容/性能底座）
 - **能用 Tailwind 搞定的，就写行内 class**，快、直观。
 - **复杂样式写在组件的 `<style lang="scss">` 块里**，不单独抽 .scss 文件。
 - **尽量少建独立 .scss 文件**，避免碎片化。只有主题变量、全局重置这类全局必需品才进 `styles/`。
+- **设计 token（间距/字号/配色）用 CSS 变量，统一写进 `global.scss`**，不建 `_tokens.scss`。项目体量不大，一个文件够用。
 - 主题切换（亮/暗）用 CSS 变量 + `[data-theme]` 选择器，定义在 `global.scss`。
 
 ---

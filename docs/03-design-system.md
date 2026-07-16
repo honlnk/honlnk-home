@@ -123,6 +123,34 @@ Small:    0.875rem ← 标签、辅助文字
 
 ## 间距与布局
 
+### 设计 token 的实现方式
+
+本项目体量不大，**所有设计 token（间距、字号、圆角、配色）统一用原生 CSS 自定义属性（CSS 变量）实现，全部集中在 `styles/global.scss` 里**，不再单独建 `_tokens.scss`。
+
+```scss
+// styles/global.scss —— 唯一的样式源头
+:root {
+  // 间距
+  --space-1: 0.5rem;
+  // 字号
+  --font-display: 3.5rem;
+  // 配色
+  --accent: #00d4aa;
+  // ...
+}
+
+// 亮/暗主题直接覆盖同一套变量
+:root[data-theme="dark"]  { --bg-base: #0a0a0a; ... }
+:root[data-theme="light"] { --bg-base: #ffffff; ... }
+```
+
+好处：
+- **单一来源**：改一处全局生效，不会有野值。
+- **主题复用**：亮/暗切换本质就是改 CSS 变量值，无缝衔接。
+- **符合原则**：只建一个 `global.scss`，其余样式内聚在组件 `<style>` 里。
+
+组件里直接用：`padding: var(--space-3); color: var(--accent);`
+
 ### 间距系统（8px 基准）
 
 ```
