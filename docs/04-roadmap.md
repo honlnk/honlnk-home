@@ -23,13 +23,13 @@
 
 ### 任务清单
 
-- [ ] 初始化 Astro 项目（`pnpm create astro@latest`）
-- [ ] 安装核心依赖：
+- [x] 初始化 Astro 项目（`pnpm create astro@latest`）
+- [x] 安装核心依赖：
   - `@astrojs/vue`（Vue 组件支持）
   - `tailwindcss` + `@tailwindcss/vite`（Tailwind v4 Vite 插件）
   - `sass`（SCSS 编译支持，Astro 原生集成）
   - `@astrojs/check` + `typescript`（类型检查）
-- [ ] 建立目录结构：
+- [x] 建立目录结构：
   ```
   src/
   ├── layouts/
@@ -49,9 +49,9 @@
   └── styles/
       └── global.scss         ← 全局样式 + 主题变量（亮/暗），其余样式写在组件内
   ```
-- [ ] 配置主题切换机制（`<html data-theme>` + `localStorage` + `prefers-color-scheme`）
-- [ ] 配置基础 `Layout.astro`（meta、SEO 标签、字体引入、防主题闪烁脚本）
-- [ ] 确认 `pnpm dev` 正常启动
+- [x] 配置主题切换机制（`<html data-theme>` + `localStorage` + `prefers-color-scheme`）
+- [x] 配置基础 `Layout.astro`（meta、SEO 标签、字体引入、防主题闪烁脚本）
+- [x] 确认 `pnpm dev` 正常启动
 
 ### 产出
 一个空白但能跑的 Astro 项目。
@@ -65,14 +65,14 @@
 
 ### 任务清单
 
-- [ ] **Hero**：名字、定位、bio、3 个 CTA 按钮、GitHub 头像
-- [ ] **About**：一段话 + 5 个标签
-- [ ] **Projects**：6 张项目卡片（数据从 `data/projects.ts` 读取）
+- [x] **Hero**：名字、定位、bio、3 个 CTA 按钮、GitHub 头像
+- [x] **About**：一段话 + 5 个标签
+- [x] **Projects**：6 张项目卡片（数据从 `data/projects.ts` 读取）
   - 数据字段：name, desc, tech[], stars, forks, url, demo?
-- [ ] **Skills**：四行分类标签
-- [ ] **Contact**：GitHub / 博客 / 邮箱 + Footer
-- [ ] **主题切换开关**：右上角 ThemeToggle.vue，亮/暗切换 + 记忆
-- [ ] 移动端基础适配（单列布局）
+- [x] **Skills**：四行分类标签
+- [x] **Contact**：GitHub / 博客 / 邮箱 + Footer
+- [x] **主题切换开关**：右上角 ThemeToggle.vue，亮/暗切换 + 记忆
+- [x] 移动端基础适配（单列布局）
 
 ### 数据准备
 
@@ -104,13 +104,13 @@ export const projects = [
 
 ### 任务清单
 
-- [ ] 全局 CSS 变量注入（配色、间距、字体）
-- [ ] 深色主题应用（背景层级、文字层级）
-- [ ] 字体引入：JetBrains Mono（等宽）+ 系统中文字体
-- [ ] Hero 视觉强化（字号阶梯、留白、CTA 按钮样式）
-- [ ] 项目卡片样式（边框、圆角、hover 上浮）
-- [ ] 板块入场动效（`client:visible` 淡入）
-- [ ] 响应式断点测试（手机/平板/桌面）
+- [x] 全局 CSS 变量注入（配色、间距、字体）
+- [x] 深色主题应用（背景层级、文字层级）
+- [x] 字体引入：JetBrains Mono（等宽）+ 系统中文字体
+- [x] Hero 视觉强化（字号阶梯、留白、CTA 按钮样式）
+- [x] 项目卡片样式（边框、圆角、hover 上浮）
+- [x] 板块入场动效（IntersectionObserver 淡入，渐进增强）
+- [x] 响应式断点测试（手机/平板/桌面）
 - [ ] Lighthouse 跑分（目标：性能/SEO 双 95+）
 
 ### 产出
@@ -125,10 +125,10 @@ export const projects = [
 
 ### 任务清单
 
-- [ ] 新建 GitHub 仓库 `honlnk-home`（或决定复用 `honlnk` profile 仓库）
-- [ ] 配置 GitHub Pages（source: main 分支）
-- [ ] 添加 `CNAME` 文件：`honlnk.com`
-- [ ] DNS 配置（在你的域名服务商处）：
+- [x] 新建 GitHub 仓库 `honlnk-home`（已创建并推送）
+- [x] 配置 GitHub Pages（source: GitHub Actions，工作流自动构建部署）
+- [x] 添加 `CNAME` 文件：`honlnk.com`
+- [x] DNS 配置（在你的域名服务商处）：
   ```
   @    A     185.199.108.153
   @    A     185.199.109.153
@@ -136,7 +136,7 @@ export const projects = [
   @    A     185.199.111.153
   www  CNAME honlnk.github.io.
   ```
-- [ ] 等待 DNS 生效，验证 HTTPS 证书
+- [ ] 等待 DNS 生效，验证 HTTPS 证书（证书签发中，待 `https_enforced` 开启）
 - [ ] 验证各子域名链接可达
 
 ### 产出
