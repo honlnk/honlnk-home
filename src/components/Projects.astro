@@ -1,6 +1,9 @@
 ---
-import { projects } from '../data/projects'
+import { getProjects } from '../data/projects'
 import ProjectCard from './ProjectCard.astro'
+
+// 构建时拉取真实 Star/Fork 数（失败则回退手填值）
+const projects = await getProjects()
 
 // featured 的排前面
 const sorted = [...projects].sort(
