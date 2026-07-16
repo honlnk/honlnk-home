@@ -47,9 +47,7 @@
   ├── pages/
   │   └── index.astro         ← 首页（组装各板块）
   └── styles/
-      ├── global.scss         ← 全局样式 + 主题变量（亮/暗）
-      ├── _tokens.scss        ← SCSS 变量、mixin（间距/字体）
-      └── _theme.scss         ← data-theme 亮暗色变量定义
+      └── global.scss         ← 全局样式 + 主题变量（亮/暗），其余样式写在组件内
   ```
 - [ ] 配置主题切换机制（`<html data-theme>` + `localStorage` + `prefers-color-scheme`）
 - [ ] 配置基础 `Layout.astro`（meta、SEO 标签、字体引入、防主题闪烁脚本）

@@ -10,24 +10,26 @@
 Astro（内容/性能底座）
   ├─ Vue3（写交互岛屿，复用现有技能）
   ├─ Tailwind CSS（简单样式，写行内 class）
-  ├─ SCSS（复杂样式，抽离成 .scss 文件）
+  ├─ SCSS（复杂样式，写在组件 <style lang="scss"> 里，尽量少建独立 .scss）
   ├─ pnpm（包管理）
   └─ GitHub Pages（部署，与现有体系一致）
 ```
 
-### 样式策略：Tailwind + SCSS 双轨
+### 样式策略：Tailwind 行内 + 组件 `<style lang="scss">`
 
-两种工具各司其职，不混用、不强求统一：
+优先级从高到低：
 
-| 场景 | 用什么 | 示例 |
+| 场景 | 用什么 | 说明 |
 |---|---|---|
-| 简单原子样式（间距、对齐、响应式）| **Tailwind 行内 class** | `<div class="flex gap-4 p-6">` |
-| 复杂样式（嵌套、变量、主题、动画）| **SCSS 文件** | `@use '../styles/hero.scss'` |
+| 简单原子样式（间距、对齐、响应式）| **Tailwind 行内 class** | 首选，`<div class="flex gap-4 p-6">` |
+| 复杂样式（嵌套、伪类、动画）| **组件内 `<style lang="scss">`** | 写在组件里，跟着组件走，保持内聚 |
+| 全局复用（主题变量、重置）| **`styles/global.scss`** | 仅限真正全局的东西 |
 
 原则：
-- 能用 Tailwind utility 搞定的，就写行内 class，快。
-- 涉及嵌套选择器、`@mixin`、`@include`、多行动画 `@keyframes` 的，抽到 SCSS。
-- 主题切换（亮/暗）的 CSS 变量统一在 SCSS 里用 `[data-theme]` 选择器管理。
+- **能用 Tailwind 搞定的，就写行内 class**，快、直观。
+- **复杂样式写在组件的 `<style lang="scss">` 块里**，不单独抽 .scss 文件。
+- **尽量少建独立 .scss 文件**，避免碎片化。只有主题变量、全局重置这类全局必需品才进 `styles/`。
+- 主题切换（亮/暗）用 CSS 变量 + `[data-theme]` 选择器，定义在 `global.scss`。
 
 ---
 
