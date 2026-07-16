@@ -1,0 +1,32 @@
+# 贪吃蛇贡献图动画 —— 每天 0 点自动重新生成，也支持手动触发
+# 生成 light/dark 两版 SVG 推送到 output 分支，站点按主题切换引用
+name: Generate Snake
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天 UTC 0 点（北京时间 08:00）
+  workflow_dispatch: # 支持手动触发
+
+# 需要写仓库权限才能推送 SVG 到 output 分支
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Snake Game from GitHub Contribution Graph
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: honlnk
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+
+      - name: Push to output branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

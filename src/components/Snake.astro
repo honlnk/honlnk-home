@@ -1,0 +1,74 @@
+---
+// ============================================================
+// Snake.astro —— 贪吃蛇贡献图动画
+// SVG 由 .github/workflows/snake.yml 生成并推送到 output 分支，
+// 这里通过 raw.githubusercontent.com 引用，按主题切换 light/dark 两版。
+// 首次使用前需手动跑一次 snake workflow 生成 SVG（否则图加载不出来）。
+// ============================================================
+
+const rawBase =
+  'https://raw.githubusercontent.com/honlnk/honlnk-home/output'
+const lightSvg = `${rawBase}/github-contribution-grid-snake.svg`
+const darkSvg = `${rawBase}/github-contribution-grid-snake-dark.svg`
+---
+
+<section class="snake container" id="snake">
+  <div class="snake-wrap">
+    {/* 两版 SVG 叠放，按 data-theme 切换显隐 */}
+    <img
+      class="snake-light"
+      src={lightSvg}
+      alt="honlnk 的 GitHub 贡献贪吃蛇动画"
+      loading="lazy"
+    />
+    <img
+      class="snake-dark"
+      src={darkSvg}
+      alt="honlnk 的 GitHub 贡献贪吃蛇动画"
+      loading="lazy"
+    />
+  </div>
+</section>
+
+<style lang="scss">
+.snake {
+  padding: 0 var(--space-3) var(--space-6);
+}
+
+.snake-wrap {
+  position: relative;
+  width: 100%;
+  max-width: var(--max-width);
+  overflow: hidden;
+
+  /* 注意：不在这里给 img 设 display，
+     否则 scoped 哈希使其特异性 (0,2,0) 高于 is:global 的主题切换规则 (0,1,0)，
+     会导致两张图始终显示。display 交给下面的 is:global 按主题控制。 */
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+
+<!--
+  主题切换用全局样式块（is:global），完全脱离 scoped 哈希，
+  避免不同规则特异性不一致导致显隐打架。
+  深色（默认）显 dark 版，亮色显 light 版。
+-->
+<style is:global>
+  /* 带父选择器 .snake-wrap 提升特异性至 (0,2,0)，
+     确保压过任何 scoped 的 img 默认规则。 */
+  .snake-wrap .snake-light {
+    display: none;
+  }
+  .snake-wrap .snake-dark {
+    display: block;
+  }
+  html[data-theme='light'] .snake-wrap .snake-light {
+    display: block;
+  }
+  html[data-theme='light'] .snake-wrap .snake-dark {
+    display: none;
+  }
+</style>
