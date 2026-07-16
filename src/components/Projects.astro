@@ -1,0 +1,59 @@
+---
+import { projects } from '../data/projects'
+import ProjectCard from './ProjectCard.astro'
+
+// featured 的排前面
+const sorted = [...projects].sort(
+  (a, b) => Number(b.featured) - Number(a.featured)
+)
+---
+
+<section class="projects container" id="projects">
+  <h2 class="section-title">精选作品</h2>
+  <div class="grid">
+    {sorted.map((p) => <ProjectCard project={p} />)}
+  </div>
+  <div class="more">
+    <a href="https://github.com/honlnk" target="_blank" rel="noopener">
+      在 GitHub 查看全部 →
+    </a>
+  </div>
+</section>
+
+<style lang="scss">
+.projects {
+  padding: var(--space-8) var(--space-3);
+}
+
+.section-title {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-3);
+}
+
+.more {
+  margin-top: var(--space-4);
+  text-align: center;
+
+  a {
+    display: inline-block;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-body);
+    transition: all var(--transition);
+
+    &:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+}
+</style>

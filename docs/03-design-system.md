@@ -147,7 +147,7 @@ Small:    0.875rem ← 标签、辅助文字
 好处：
 - **单一来源**：改一处全局生效，不会有野值。
 - **主题复用**：亮/暗切换本质就是改 CSS 变量值，无缝衔接。
-- **符合原则**：只建一个 `global.scss`，其余样式内聚在组件 `<style>` 里。
+- **符合原则**：`styles/` 只有两个文件（`global.css` 引 Tailwind + `global.scss` 装 token/主题），其余样式内聚在组件 `<style>` 里。
 
 组件里直接用：`padding: var(--space-3); color: var(--accent);`
 

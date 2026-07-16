@@ -28,9 +28,15 @@ Astro（内容/性能底座）
 原则：
 - **能用 Tailwind 搞定的，就写行内 class**，快、直观。
 - **复杂样式写在组件的 `<style lang="scss">` 块里**，不单独抽 .scss 文件。
-- **尽量少建独立 .scss 文件**，避免碎片化。只有主题变量、全局重置这类全局必需品才进 `styles/`。
+- **尽量少建独立样式文件**，避免碎片化。`styles/` 只保留两个全局文件。
 - **设计 token（间距/字号/配色）用 CSS 变量，统一写进 `global.scss`**，不建 `_tokens.scss`。项目体量不大，一个文件够用。
 - 主题切换（亮/暗）用 CSS 变量 + `[data-theme]` 选择器，定义在 `global.scss`。
+
+> ⚠️ **Tailwind 引入的坑**：Tailwind v4 的 `@import 'tailwindcss'` 必须写在 `.css` 文件里（SCSS 编译器不认这个路径）。因此 `styles/` 拆成两个文件：
+> - `global.css` —— 只有一行 `@import 'tailwindcss'`，Tailwind 入口
+> - `global.scss` —— 设计 token + 亮暗主题 + 全局重置（我们的样式源头）
+>
+> 两者在 `Layout.astro` 里分别引入。这是 Tailwind v4 + SCSS 共存的必要拆分，不算违反"少建文件"原则。
 
 ---
 

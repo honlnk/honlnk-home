@@ -1,0 +1,124 @@
+---
+const avatar = 'https://avatars.githubusercontent.com/u/235359418?v=4'
+---
+
+<section class="hero container">
+  <img src={avatar} alt="鸿影的头像" class="avatar" width="120" height="120" />
+  <h1 class="name">鸿影</h1>
+  <p class="id mono">honlnk</p>
+  <p class="tagline">独立开发者 / AI 应用全栈 · 济南</p>
+  <p class="bio">"This loser is lazy and leaves nothing behind."</p>
+
+  <div class="cta">
+    <a href="#projects" class="btn btn-primary">查看作品</a>
+    <a href="https://github.com/honlnk" target="_blank" rel="noopener" class="btn">GitHub</a>
+    <a href="https://blog.honlnk.com" target="_blank" rel="noopener" class="btn">博客</a>
+  </div>
+</section>
+
+<style lang="scss">
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-8) var(--space-3);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  margin-bottom: var(--space-3);
+  transition: border-color var(--transition);
+
+  &:hover {
+    border-color: var(--accent);
+  }
+}
+
+.name {
+  font-size: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+.id {
+  font-size: var(--font-h2);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.tagline {
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--font-body);
+}
+
+.bio {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+  font-size: var(--font-small);
+  font-style: italic;
+}
+
+.cta {
+  margin-top: var(--space-4);
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: var(--font-body);
+  transition: all var(--transition);
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  &-primary {
+    background: var(--accent);
+    color: #0a0a0a;
+    border-color: var(--accent);
+    font-weight: 600;
+
+    &:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #0a0a0a;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 80vh;
+  }
+  .name {
+    font-size: 2.5rem;
+  }
+  .id {
+    font-size: 1.3rem;
+  }
+  .cta {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+  }
+  .btn {
+    width: 100%;
+  }
+}
+</style>

@@ -1,0 +1,85 @@
+---
+const links = [
+  { label: 'GitHub', value: '@honlnk', url: 'https://github.com/honlnk' },
+  { label: '博客', value: 'blog.honlnk.com', url: 'https://blog.honlnk.com' },
+  { label: '邮箱', value: 'hi@honlnk.com', url: 'mailto:hi@honlnk.com' },
+]
+---
+
+<section class="contact container" id="contact">
+  <h2 class="section-title">保持联系</h2>
+  <div class="links">
+    {
+      links.map((l) => (
+        <a href={l.url} target="_blank" rel="noopener" class="link-card">
+          <span class="label">{l.label}</span>
+          <span class="value mono">{l.value}</span>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 鸿影 · honlnk.com</p>
+</footer>
+
+<style lang="scss">
+.contact {
+  padding: var(--space-8) var(--space-3);
+  text-align: center;
+}
+
+.section-title {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-width: 160px;
+  transition: all var(--transition);
+
+  &:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+
+    .value {
+      color: var(--accent);
+    }
+  }
+
+  .label {
+    font-size: var(--font-small);
+    color: var(--text-muted);
+  }
+
+  .value {
+    font-size: var(--font-body);
+    color: var(--text-primary);
+  }
+}
+
+.footer {
+  margin-top: var(--space-6);
+  padding: var(--space-3);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-small);
+}
+</style>

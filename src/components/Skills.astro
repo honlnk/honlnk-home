@@ -1,0 +1,69 @@
+---
+const groups = [
+  { label: '前端', items: ['TypeScript', 'Vue3', 'Vite', 'Tailwind'] },
+  { label: '后端', items: ['Java', 'Spring Boot', 'Python'] },
+  { label: 'AI / 工具', items: ['MCP', 'RAG', 'LLM 应用'] },
+  { label: '运维', items: ['Docker', 'Nginx', 'Cloudflare', 'Linux'] },
+]
+---
+
+<section class="skills container" id="skills">
+  <h2 class="section-title">技能栈</h2>
+  <div class="grid">
+    {
+      groups.map((g) => (
+        <div class="group">
+          <h3 class="group-label mono">{g.label}</h3>
+          <div class="items">
+            {g.items.map((item) => <span class="item mono">{item}</span>)}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style lang="scss">
+.skills {
+  padding: var(--space-8) var(--space-3);
+}
+
+.section-title {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-3);
+}
+
+.group-label {
+  font-size: var(--font-small);
+  color: var(--accent);
+  margin-bottom: var(--space-1);
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.item {
+  font-size: var(--font-small);
+  padding: 0.3rem 0.7rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition);
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+</style>

@@ -1,0 +1,119 @@
+---
+import type { Project } from '../data/projects'
+
+interface Props {
+  project: Project
+}
+
+const { project } = Astro.props
+---
+
+<a
+  href={project.url}
+  target="_blank"
+  rel="noopener"
+  class="card"
+>
+  <div class="card-head">
+    <h3 class="card-name">{project.name}</h3>
+    <div class="card-tech">
+      {project.tech.map((t) => <span class="tech mono">{t}</span>)}
+    </div>
+  </div>
+
+  <p class="card-desc">{project.desc}</p>
+
+  <div class="card-foot">
+    <span class="stat">
+      <span class="stat-icon">★</span> {project.stars}
+      <span class="stat-icon dim">⑂</span> {project.forks}
+    </span>
+    <span class="link">{project.url.replace('https://', '')} →</span>
+  </div>
+</a>
+
+<style lang="scss">
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all var(--transition);
+
+  &:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    color: inherit;
+
+    .link {
+      color: var(--accent);
+    }
+  }
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-1);
+  margin-bottom: var(--space-1);
+}
+
+.card-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.card-tech {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.tech {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  background: var(--bg-elevated);
+  border-radius: 4px;
+  color: var(--text-secondary);
+}
+
+.card-desc {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: var(--font-body);
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+}
+
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-small);
+  color: var(--text-muted);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  .stat-icon {
+    color: var(--accent);
+
+    &.dim {
+      color: var(--text-muted);
+    }
+  }
+}
+
+.link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  transition: color var(--transition);
+}
+</style>

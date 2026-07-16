@@ -1,0 +1,56 @@
+---
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = '鸿影 · honlnk',
+  description = '独立开发者 / AI 应用全栈 · 济南。把 AI 能力做成能真正用起来的产品。',
+} = Astro.props
+
+import '../styles/global.css'
+import '../styles/global.scss'
+import ThemeToggle from '../components/ThemeToggle.vue'
+
+const avatar = 'https://avatars.githubusercontent.com/u/235359418?v=4'
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph：分享预览 -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={avatar} />
+    <meta property="og:type" content="website" />
+
+    <!--
+      防主题闪烁：在 HTML 解析阶段就读取主题并设置 data-theme。
+      必须是 inline + 阻塞脚本，否则刷新会闪一下默认色。
+    -->
+    <script is:inline>
+      ;(function () {
+        try {
+          const saved = localStorage.getItem('theme')
+          const prefersLight = window.matchMedia(
+            '(prefers-color-scheme: light)'
+          ).matches
+          const theme = saved || (prefersLight ? 'light' : 'dark')
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <ThemeToggle client:load />
+    <slot />
+  </body>
+</html>

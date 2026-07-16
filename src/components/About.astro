@@ -1,0 +1,53 @@
+---
+const tags = ['AI应用', '全栈', '独立开发', 'MCP生态', '自托管']
+---
+
+<section class="about container" id="about">
+  <h2 class="section-title">关于我</h2>
+  <div class="content">
+    <p>
+      我是鸿影，一个在济南的独立开发者。热衷于把 AI 能力做成<strong>能真正用起来的产品</strong>——从图像生成、长篇写作到自托管 MCP 工具链。前端用 TypeScript/Vue，后端靠 Java，Python 当胶水。
+    </p>
+    <div class="tags">
+      {tags.map((t) => <span class="tag mono">#{t}</span>)}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+.about {
+  padding: var(--space-8) var(--space-3);
+}
+
+.section-title {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.content {
+  max-width: var(--narrow);
+  font-size: var(--font-body);
+  color: var(--text-secondary);
+  line-height: 1.8;
+
+  strong {
+    color: var(--text-primary);
+  }
+}
+
+.tags {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.tag {
+  font-size: var(--font-small);
+  padding: 0.25rem 0.6rem;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+}
+</style>
