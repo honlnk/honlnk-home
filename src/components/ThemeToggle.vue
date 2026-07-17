@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
+// 文案由 Astro 通过 props 传入（i18n）
+const props = defineProps<{
+  toLight: string
+  toDark: string
+}>()
+
 const theme = ref<'dark' | 'light'>('dark')
 const mounted = ref(false)
 
@@ -28,8 +34,8 @@ onMounted(() => {
     class="theme-toggle"
     :class="{ 'is-light': theme === 'light' }"
     @click="toggle"
-    :title="theme === 'dark' ? '切换到亮色' : '切换到暗色'"
-    :aria-label="theme === 'dark' ? '切换到亮色' : '切换到暗色'"
+    :title="theme === 'dark' ? props.toLight : props.toDark"
+    :aria-label="theme === 'dark' ? props.toLight : props.toDark"
   >
     <!-- 仅在挂载后渲染，避免 SSR/CSR 不一致导致图标闪烁 -->
     <span v-if="mounted" class="icon">{{ theme === 'dark' ? '☀' : '☾' }}</span>

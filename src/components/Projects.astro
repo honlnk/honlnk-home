@@ -1,9 +1,13 @@
 ---
 import { getProjects } from '../data/projects'
 import ProjectCard from './ProjectCard.astro'
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
 
-// 构建时拉取真实 Star/Fork 数（失败则回退手填值）
-const projects = await getProjects()
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+// 按当前语言取项目数据 + 构建时拉取真实 Star/Fork 数（失败则回退手填值）
+const projects = await getProjects(lang)
 
 // featured 的排前面
 const sorted = [...projects].sort(
@@ -12,13 +16,13 @@ const sorted = [...projects].sort(
 ---
 
 <section class="projects container" id="projects">
-  <h2 class="section-title">精选作品</h2>
+  <h2 class="section-title">{t('projects.title')}</h2>
   <div class="grid">
     {sorted.map((p) => <ProjectCard project={p} />)}
   </div>
   <div class="more">
     <a href="https://github.com/honlnk" target="_blank" rel="noopener">
-      在 GitHub 查看全部 →
+      {t('projects.viewAll')} →
     </a>
   </div>
 </section>

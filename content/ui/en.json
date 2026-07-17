@@ -1,0 +1,41 @@
+{
+  "meta.title": "Hongying · honlnk",
+  "meta.description": "Indie developer / AI full-stack · Jinan. Turning AI capabilities into products that genuinely work.",
+
+  "theme.toLight": "Switch to light",
+  "theme.toDark": "Switch to dark",
+  "lang.switch": "Switch language",
+
+  "hero.avatarAlt": "Hongying's avatar",
+  "hero.name": "Hongying",
+  "hero.tagline": "Indie Developer / AI Full-Stack · Jinan",
+  "hero.cta.viewWork": "View Work",
+  "hero.cta.blog": "Blog",
+
+  "about.title": "About",
+  "about.bio": "I'm Hongying, an indie developer based in Jinan. I'm passionate about turning AI capabilities into <strong>products that genuinely work</strong>—from image generation and long-form writing to self-hosted MCP toolchains. TypeScript/Vue on the frontend, Java on the backend, Python as glue.",
+  "about.tag.aiApp": "AI Apps",
+  "about.tag.fullstack": "Full-Stack",
+  "about.tag.indie": "Indie Dev",
+  "about.tag.mcp": "MCP Ecosystem",
+  "about.tag.selfhost": "Self-Hosted",
+
+  "projects.title": "Featured Work",
+  "projects.viewAll": "View all on GitHub",
+
+  "skills.title": "Tech Stack",
+
+  "stats.title": "GitHub Stats",
+  "stats.label.repos": "Public Repos",
+  "stats.label.stars": "Total Stars",
+  "stats.label.followers": "Followers",
+  "stats.label.forks": "Total Forks",
+  "stats.since": "GitHub {since} · Active for {years} yr(s)",
+  "stats.langDist": "Stack Distribution",
+
+  "contact.title": "Get in Touch",
+  "contact.label.github": "GitHub",
+  "contact.label.blog": "Blog",
+  "contact.label.email": "Email",
+  "contact.copyright": "© 2026 Hongying · honlnk.com"
+}

@@ -1,13 +1,19 @@
 ---
-const links = [
-  { label: 'GitHub', value: '@honlnk', url: 'https://github.com/honlnk' },
-  { label: '博客', value: 'blog.honlnk.com', url: 'https://blog.honlnk.com' },
-  { label: '邮箱', value: 'hi@honlnk.com', url: 'mailto:hi@honlnk.com' },
-]
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { contacts } from '../data/profile'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+// 联系方式来自 content/profile.json；label 优先走翻译 key，否则用字面量
+const links = contacts.map((c) => ({
+  ...c,
+  label: c.labelKey ? t(c.labelKey) : (c.label ?? ''),
+}))
 ---
 
 <section class="contact container" id="contact">
-  <h2 class="section-title">保持联系</h2>
+  <h2 class="section-title">{t('contact.title')}</h2>
   <div class="links">
     {
       links.map((l) => (
@@ -21,7 +27,7 @@ const links = [
 </section>
 
 <footer class="footer">
-  <p>© 2026 鸿影 · honlnk.com</p>
+  <p>{t('contact.copyright')}</p>
 </footer>
 
 <style lang="scss">

@@ -1,0 +1,64 @@
+---
+// 语言切换器：在中文版 (/) 和英文版 (/en/) 之间跳转
+import { languages, type Lang } from '../i18n/ui'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+
+// 当前语言对应的首页路径
+function homePath(l: Lang): string {
+  // 默认语言（中文）无前缀，英文走 /en/
+  return l === 'zh' ? '/' : `/${l}/`
+}
+---
+
+<div class="lang-switch" role="group" aria-label="language">
+  {
+    (Object.keys(languages) as Lang[]).map((l) => (
+      <a
+        href={homePath(l)}
+        class:list={['lang-link', { active: l === lang }]}
+        lang={l === 'zh' ? 'zh-CN' : 'en'}
+      >
+        {languages[l]}
+      </a>
+    ))
+  }
+</div>
+
+<style lang="scss">
+.lang-switch {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 0.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  transition: border-color var(--transition);
+}
+
+.lang-switch:hover {
+  border-color: var(--accent);
+}
+
+.lang-link {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  transition: all var(--transition);
+  white-space: nowrap;
+
+  &.active {
+    color: var(--accent);
+    background: var(--accent-weak);
+  }
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+</style>

@@ -1,0 +1,31 @@
+[
+  {
+    "name": "GPT Image Studio",
+    "desc": "Local-first AI image creation workbench",
+    "tech": ["TypeScript"],
+    "stars": 22,
+    "forks": 3,
+    "url": "https://image.honlnk.com",
+    "repo": "https://github.com/honlnk/gpt-image-studio",
+    "featured": true
+  },
+  {
+    "name": "NovAI",
+    "desc": "Long-form novel AI writing workspace (RAG-powered)",
+    "tech": ["TypeScript"],
+    "stars": 5,
+    "forks": 1,
+    "url": "https://novai.honlnk.com",
+    "repo": "https://github.com/honlnk/NovAI",
+    "featured": true
+  },
+  {
+    "name": "linkseek",
+    "desc": "Self-hosted MCP server (web search + scraping)",
+    "tech": ["TypeScript"],
+    "stars": 1,
+    "forks": 0,
+    "url": "https://linkseek.honlnk.com",
+    "repo": "https://github.com/honlnk/linkseek"
+  }
+]

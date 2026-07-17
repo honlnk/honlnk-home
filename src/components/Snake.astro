@@ -3,13 +3,13 @@
 // Snake.astro —— 贪吃蛇贡献图动画
 // SVG 由 .github/workflows/snake.yml 生成并推送到 output 分支，
 // 这里通过 raw.githubusercontent.com 引用，按主题切换 light/dark 两版。
+// SVG 路径配置在 content/profile.json（snake.light / snake.dark）。
 // 首次使用前需手动跑一次 snake workflow 生成 SVG（否则图加载不出来）。
 // ============================================================
 
-const rawBase =
-  'https://raw.githubusercontent.com/honlnk/honlnk-home/output'
-const lightSvg = `${rawBase}/github-contribution-grid-snake.svg`
-const darkSvg = `${rawBase}/github-contribution-grid-snake-dark.svg`
+import { snake } from '../data/profile'
+const lightSvg = snake.light
+const darkSvg = snake.dark
 ---
 
 <section class="snake container" id="snake">

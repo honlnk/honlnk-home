@@ -1,0 +1,27 @@
+---
+// PageHome.astro —— 首页内容（共享片段）
+// 被 src/pages/index.astro（中文版 /）和 src/pages/en/index.astro（英文版 /en/）共用。
+// locale 由各自的入口文件根据路径传入。
+import Hero from './Hero.astro'
+import About from './About.astro'
+import Projects from './Projects.astro'
+import Skills from './Skills.astro'
+import GitHubStats from './GitHubStats.astro'
+import Snake from './Snake.astro'
+import Contact from './Contact.astro'
+
+interface Props {
+  locale: import('../i18n/ui').Lang
+}
+const { locale } = Astro.props
+---
+
+<main>
+  <Hero />
+  <About />
+  <Projects />
+  <Skills />
+  <GitHubStats />
+  <Snake />
+  <Contact />
+</main>

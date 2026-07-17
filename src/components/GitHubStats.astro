@@ -2,12 +2,13 @@
 // ============================================================
 // GitHubStats.astro —— GitHub 统计卡片（构建时本地生成，零第三方依赖）
 // 数据源：GitHub REST API（未认证，60/h 限流够用）
-//   /users/honlnk              → 聚合数据（仓库数/关注者/注册时间）
-//   /users/honlnk/repos        → 仓库列表（聚合 stars/forks/语言分布）
+//   /users/{username}           → 聚合数据（仓库数/关注者/注册时间）
+//   /users/{username}/repos     → 仓库列表（聚合 stars/forks/语言分布）
+// 用户名取自 content/profile.json。
 // 任一请求失败 → 整块不渲染（优雅降级，不影响页面其余部分）
 // ============================================================
 
-const USERNAME = 'honlnk'
+import { username as USERNAME } from '../data/profile'
 
 interface UserStats {
   public_repos: number
@@ -88,53 +89,61 @@ async function fetchGitHubStats(): Promise<UserStats | null> {
   }
 }
 
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+
+// 语言与翻译
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
 const stats = await fetchGitHubStats()
 
 // 账号注册年份，用于"贡献年限"
 const since = stats ? new Date(stats.created_at).getFullYear() : null
 const years = since ? new Date().getFullYear() - since : 0
+const sinceText =
+  years > 0
+    ? t('stats.since', { since, years })
+    : `GitHub ${since}` // years=0 时简化，不套"活跃 N 年"模板
 ---
 
 {stats && (
   <section class="stats container" id="stats">
-    <h2 class="section-title">GitHub 数据</h2>
+    <h2 class="section-title">{t('stats.title')}</h2>
     <div class="grid">
       {/* 数字统计卡 */}
       <div class="card numbers">
         <div class="number-grid">
           <div class="stat-item">
             <span class="num">{stats.public_repos}</span>
-            <span class="label">公开仓库</span>
+            <span class="label">{t('stats.label.repos')}</span>
           </div>
           <div class="stat-item">
             <span class="num">{stats.total_stars}</span>
-            <span class="label">累计 Stars</span>
+            <span class="label">{t('stats.label.stars')}</span>
           </div>
           <div class="stat-item">
             <span class="num">{stats.followers}</span>
-            <span class="label">关注者</span>
+            <span class="label">{t('stats.label.followers')}</span>
           </div>
           <div class="stat-item">
             <span class="num">{stats.total_forks}</span>
-            <span class="label">累计 Forks</span>
+            <span class="label">{t('stats.label.forks')}</span>
           </div>
         </div>
-        <p class="since mono">
-          {years > 0 ? `GitHub ${since} · 活跃 ${years} 年` : `GitHub ${since}`}
-        </p>
+        <p class="since mono" set:html={sinceText}></p>
       </div>
 
       {/* 语言占比卡 */}
       <div class="card langs">
-        <h3 class="card-label">技术栈分布</h3>
+        <h3 class="card-label">{t('stats.langDist')}</h3>
         <div class="lang-list">
-          {stats.languages.map((lang) => (
+          {stats.languages.map((l) => (
             <div class="lang-row">
-              <span class="lang-name">{lang.name}</span>
+              <span class="lang-name">{l.name}</span>
               <div class="lang-bar-wrap">
-                <div class="lang-bar" style={`width: ${lang.pct}%`} />
+                <div class="lang-bar" style={`width: ${l.pct}%`} />
               </div>
-              <span class="lang-pct mono">{lang.pct}%</span>
+              <span class="lang-pct mono">{l.pct}%</span>
             </div>
           ))}
         </div>

@@ -1,0 +1,41 @@
+{
+  "meta.title": "鸿影 · honlnk",
+  "meta.description": "独立开发者 / AI 应用全栈 · 济南。把 AI 能力做成能真正用起来的产品。",
+
+  "theme.toLight": "切换到亮色",
+  "theme.toDark": "切换到暗色",
+  "lang.switch": "切换语言",
+
+  "hero.avatarAlt": "鸿影的头像",
+  "hero.name": "鸿影",
+  "hero.tagline": "独立开发者 / AI 应用全栈 · 济南",
+  "hero.cta.viewWork": "查看作品",
+  "hero.cta.blog": "博客",
+
+  "about.title": "关于我",
+  "about.bio": "我是鸿影，一个在济南的独立开发者。热衷于把 AI 能力做成<strong>能真正用起来的产品</strong>——从图像生成、长篇写作到自托管 MCP 工具链。前端用 TypeScript/Vue，后端靠 Java，Python 当胶水。",
+  "about.tag.aiApp": "AI应用",
+  "about.tag.fullstack": "全栈",
+  "about.tag.indie": "独立开发",
+  "about.tag.mcp": "MCP生态",
+  "about.tag.selfhost": "自托管",
+
+  "projects.title": "精选作品",
+  "projects.viewAll": "在 GitHub 查看全部",
+
+  "skills.title": "技能栈",
+
+  "stats.title": "GitHub 数据",
+  "stats.label.repos": "公开仓库",
+  "stats.label.stars": "累计 Stars",
+  "stats.label.followers": "关注者",
+  "stats.label.forks": "累计 Forks",
+  "stats.since": "GitHub {since} · 活跃 {years} 年",
+  "stats.langDist": "技术栈分布",
+
+  "contact.title": "保持联系",
+  "contact.label.github": "GitHub",
+  "contact.label.blog": "博客",
+  "contact.label.email": "邮箱",
+  "contact.copyright": "© 2026 鸿影 · honlnk.com"
+}

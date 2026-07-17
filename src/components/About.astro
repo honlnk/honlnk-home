@@ -1,15 +1,20 @@
 ---
-const tags = ['AI应用', '全栈', '独立开发', 'MCP生态', '自托管']
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { getAboutTagKeys } from '../data/profile'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+// 标签列表来自 content/profile.json（aboutTags），文案走 ui 翻译
+const tags = getAboutTagKeys().map((key) => t(key))
 ---
 
 <section class="about container" id="about">
-  <h2 class="section-title">关于我</h2>
+  <h2 class="section-title">{t('about.title')}</h2>
   <div class="content">
-    <p>
-      我是鸿影，一个在济南的独立开发者。热衷于把 AI 能力做成<strong>能真正用起来的产品</strong>——从图像生成、长篇写作到自托管 MCP 工具链。前端用 TypeScript/Vue，后端靠 Java，Python 当胶水。
-    </p>
+    <p set:html={t('about.bio')}></p>
     <div class="tags">
-      {tags.map((t) => <span class="tag mono">#{t}</span>)}
+      {tags.map((tag) => <span class="tag mono">#{tag}</span>)}
     </div>
   </div>
 </section>

@@ -1,24 +1,40 @@
 ---
-interface Props {
-  title?: string
-  description?: string
-}
-
-const {
-  title = '鸿影 · honlnk',
-  description = '独立开发者 / AI 应用全栈 · 济南。把 AI 能力做成能真正用起来的产品。',
-} = Astro.props
-
 import '../styles/global.css'
 import '../styles/global.scss'
 import ThemeToggle from '../components/ThemeToggle.vue'
 import RevealOnScroll from '../components/RevealOnScroll.astro'
+import LanguageSwitcher from '../components/LanguageSwitcher.astro'
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { languages, defaultLang, type Lang } from '../i18n/ui'
+import { avatar } from '../data/profile'
 
-const avatar = 'https://avatars.githubusercontent.com/u/235359418?v=4'
+interface Props {
+  locale?: Lang
+}
+
+const { locale } = Astro.props
+
+// locale 优先从 props 取（[locale] 路由传入），否则从 URL 解析
+const lang: Lang = locale ?? getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+const title = t('meta.title')
+const description = t('meta.description')
+
+// SEO：当前页面对应各语言的 URL（首页场景）
+// 中文版 → https://honlnk.com/，英文版 → https://honlnk.com/en/
+const site = Astro.site ?? new URL('https://honlnk.com')
+const canonicalPath = lang === defaultLang ? `${site.origin}/` : `${site.origin}/${lang}/`
+
+// hreflang 用 BCP-47 规范
+const hreflangMap: { code: string; href: string }[] = [
+  { code: 'zh-CN', href: `${site.origin}/` },
+  { code: 'en', href: `${site.origin}/en/` },
+]
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-theme="dark">
+<html lang={lang === 'en' ? 'en' : 'zh-CN'} data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,12 +48,19 @@ const avatar = 'https://avatars.githubusercontent.com/u/235359418?v=4'
     />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalPath} />
+
+    <!-- hreflang：告诉搜索引擎每个语言版本的 URL -->
+    {hreflangMap.map((h) => <link rel="alternate" hreflang={h.code} href={h.href} />)}
+    <link rel="alternate" hreflang="x-default" href={`${site.origin}/`} />
 
     <!-- Open Graph：分享预览 -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={avatar} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'zh_CN'} />
+    <meta property="og:locale:alternate" content={lang === 'en' ? 'zh_CN' : 'en_US'} />
 
     <!--
       防主题闪烁：在 HTML 解析阶段就读取主题并设置 data-theme。
@@ -57,8 +80,36 @@ const avatar = 'https://avatars.githubusercontent.com/u/235359418?v=4'
     </script>
   </head>
   <body>
-    <ThemeToggle client:load />
+    <div class="top-bar">
+      <ThemeToggle client:load toLight={t('theme.toLight')} toDark={t('theme.toDark')} />
+      <LanguageSwitcher lang={lang} />
+    </div>
     <slot />
     <RevealOnScroll />
   </body>
 </html>
+
+<style lang="scss">
+/* 顶部右侧控件区：主题切换 + 语言切换并排 */
+.top-bar {
+  position: fixed;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+@media (max-width: 640px) {
+  .top-bar {
+    top: var(--space-2);
+    right: var(--space-2);
+  }
+}
+
+/* ThemeToggle 不再自己定位，交给 .top-bar 容器统一管理 */
+:global(.theme-toggle) {
+  position: static !important;
+}
+</style>

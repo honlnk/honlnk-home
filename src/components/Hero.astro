@@ -1,18 +1,37 @@
 ---
-const avatar = 'https://avatars.githubusercontent.com/u/235359418?v=4'
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { avatar, bio, heroCta, username } from '../data/profile'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+// CTA 按钮来自 content/profile.json；label 优先走翻译 key，否则用字面量
+const ctaButtons = heroCta.map((c) => ({
+  ...c,
+  label: c.labelKey ? t(c.labelKey) : (c.label ?? ''),
+}))
 ---
 
 <section class="hero container">
-  <img src={avatar} alt="鸿影的头像" class="avatar" width="120" height="120" />
-  <h1 class="name">鸿影</h1>
-  <p class="id mono">honlnk</p>
-  <p class="tagline">独立开发者 / AI 应用全栈 · 济南</p>
-  <p class="bio">"This loser is lazy and leaves nothing behind."</p>
+  <img src={avatar} alt={t('hero.avatarAlt')} class="avatar" width="120" height="120" />
+  <h1 class="name">{t('hero.name')}</h1>
+  <p class="id mono">{username}</p>
+  <p class="tagline">{t('hero.tagline')}</p>
+  <p class="bio">{bio}</p>
 
   <div class="cta">
-    <a href="#projects" class="btn btn-primary">查看作品</a>
-    <a href="https://github.com/honlnk" target="_blank" rel="noopener" class="btn">GitHub</a>
-    <a href="https://blog.honlnk.com" target="_blank" rel="noopener" class="btn">博客</a>
+    {
+      ctaButtons.map((c) => (
+        <a
+          href={c.href}
+          class:list={['btn', { 'btn-primary': c.primary }]}
+          target={c.external ? '_blank' : undefined}
+          rel={c.external ? 'noopener' : undefined}
+        >
+          {c.label}
+        </a>
+      ))
+    }
   </div>
 </section>
 

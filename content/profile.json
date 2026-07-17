@@ -1,0 +1,24 @@
+{
+  "username": "honlnk",
+  "avatar": "https://avatars.githubusercontent.com/u/235359418?v=4",
+  "bio": "\"This loser is lazy and leaves nothing behind.\"",
+
+  "heroCta": [
+    { "labelKey": "hero.cta.viewWork", "href": "#projects", "primary": true },
+    { "label": "GitHub", "href": "https://github.com/honlnk", "external": true },
+    { "labelKey": "hero.cta.blog", "href": "https://blog.honlnk.com", "external": true }
+  ],
+
+  "aboutTags": ["aiApp", "fullstack", "indie", "mcp", "selfhost"],
+
+  "contacts": [
+    { "labelKey": "contact.label.github", "value": "@honlnk", "url": "https://github.com/honlnk" },
+    { "labelKey": "contact.label.blog", "value": "blog.honlnk.com", "url": "https://blog.honlnk.com" },
+    { "labelKey": "contact.label.email", "value": "hi@honlnk.com", "url": "mailto:hi@honlnk.com" }
+  ],
+
+  "snake": {
+    "light": "https://raw.githubusercontent.com/honlnk/honlnk-home/output/github-contribution-grid-snake.svg",
+    "dark": "https://raw.githubusercontent.com/honlnk/honlnk-home/output/github-contribution-grid-snake-dark.svg"
+  }
+}

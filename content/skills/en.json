@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Frontend",
+    "items": ["TypeScript", "Vue3", "Vite", "Tailwind"]
+  },
+  {
+    "label": "Backend",
+    "items": ["Java", "Spring Boot", "Python"]
+  },
+  {
+    "label": "AI / Tools",
+    "items": ["MCP", "RAG", "LLM Apps"]
+  },
+  {
+    "label": "DevOps",
+    "items": ["Docker", "Nginx", "Cloudflare", "Linux"]
+  }
+]

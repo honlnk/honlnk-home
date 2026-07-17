@@ -1,22 +1,9 @@
 ---
+// 中文版首页（默认语言，URL: /）
 import Layout from '../layouts/Layout.astro'
-import Hero from '../components/Hero.astro'
-import About from '../components/About.astro'
-import Projects from '../components/Projects.astro'
-import Skills from '../components/Skills.astro'
-import GitHubStats from '../components/GitHubStats.astro'
-import Snake from '../components/Snake.astro'
-import Contact from '../components/Contact.astro'
+import PageHome from '../components/PageHome.astro'
 ---
 
-<Layout>
-  <main>
-    <Hero />
-    <About />
-    <Projects />
-    <Skills />
-    <GitHubStats />
-    <Snake />
-    <Contact />
-  </main>
+<Layout locale="zh">
+  <PageHome locale="zh" />
 </Layout>
