@@ -4,6 +4,7 @@ import '../styles/global.scss'
 import ThemeToggle from '../components/ThemeToggle.vue'
 import RevealOnScroll from '../components/RevealOnScroll.astro'
 import LanguageSwitcher from '../components/LanguageSwitcher.astro'
+import GitHubRepoLink from '../components/GitHubRepoLink.astro'
 import { getLangFromUrl, useTranslations } from '../i18n/utils'
 import { languages, defaultLang, type Lang } from '../i18n/ui'
 import { avatar } from '../data/profile'
@@ -81,6 +82,7 @@ const hreflangMap: { code: string; href: string }[] = [
   </head>
   <body>
     <div class="top-bar">
+      <GitHubRepoLink />
       <ThemeToggle client:load toLight={t('theme.toLight')} toDark={t('theme.toDark')} />
       <LanguageSwitcher lang={lang} />
     </div>
