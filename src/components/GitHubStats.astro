@@ -1,156 +1,32 @@
 ---
 // ============================================================
-// GitHubStats.astro —— GitHub 统计卡片（构建时本地生成，零第三方依赖）
-// 数据源：GitHub REST API（未认证，60/h 限流够用）
-//   /users/{username}           → 聚合数据（仓库数/关注者/注册时间）
-//   /users/{username}/repos     → 仓库列表（聚合 stars/forks/语言分布）
-// 用户名取自 content/profile.json。
-// 任一请求失败 → 整块不渲染（优雅降级，不影响页面其余部分）
+// GitHubStats.astro —— 统计面板外壳
+// 数据由 GitHubStats.vue（client:load）在浏览器端拉取 + localStorage 缓存。
+// 缓存策略：每天 0 点 / 12 点后第一次访问才拉新，其余读缓存，失败静默兜底。
+// 文案（含 since 模板）由这里拼好传进 Vue，保持 i18n。
 // ============================================================
-
-import { username as USERNAME } from '../data/profile'
-
-interface UserStats {
-  public_repos: number
-  followers: number
-  following: number
-  created_at: string
-  total_stars: number
-  total_forks: number
-  languages: { name: string; count: number; pct: number }[]
-}
-
-async function fetchGitHubStats(): Promise<UserStats | null> {
-  const headers = {
-    Accept: 'application/vnd.github+json',
-    ...(process.env.GITHUB_TOKEN
-      ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
-      : {}),
-  }
-
-  try {
-    const [userRes, reposRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${USERNAME}`, { headers }),
-      fetch(
-        `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=pushed`,
-        { headers }
-      ),
-    ])
-
-    if (userRes.status === 403 || reposRes.status === 403) {
-      console.warn('[GitHubStats] GitHub API 限流（403），统计卡片跳过渲染')
-      return null
-    }
-    if (!userRes.ok || !reposRes.ok) return null
-
-    const user = await userRes.json()
-    const repos = await reposRes.json()
-
-    const total_stars = repos.reduce(
-      (s: number, r: any) => s + (r.stargazers_count || 0),
-      0
-    )
-    const total_forks = repos.reduce(
-      (s: number, r: any) => s + (r.forks_count || 0),
-      0
-    )
-
-    // 按仓库数量统计语言分布
-    const langCount: Record<string, number> = {}
-    for (const r of repos) {
-      const lang = r.language
-      if (lang) langCount[lang] = (langCount[lang] || 0) + 1
-    }
-    const totalLangRepos = Object.values(langCount).reduce(
-      (a: number, b: number) => a + b,
-      0
-    )
-    const languages = Object.entries(langCount)
-      .map(([name, count]) => ({
-        name,
-        count,
-        pct: totalLangRepos ? Math.round((count / totalLangRepos) * 100) : 0,
-      }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 6) // 最多展示 6 种
-
-    return {
-      public_repos: user.public_repos,
-      followers: user.followers,
-      following: user.following,
-      created_at: user.created_at,
-      total_stars,
-      total_forks,
-      languages,
-    }
-  } catch (e) {
-    console.warn('[GitHubStats] 拉取失败，统计卡片跳过渲染')
-    return null
-  }
-}
-
 import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { username } from '../data/profile'
+import GitHubStatsVue from './GitHubStats.vue'
 
-// 语言与翻译
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
-const stats = await fetchGitHubStats()
-
-// 账号注册年份，用于"贡献年限"
-const since = stats ? new Date(stats.created_at).getFullYear() : null
-const years = since ? new Date().getFullYear() - since : 0
-const sinceText =
-  years > 0
-    ? t('stats.since', { since, years })
-    : `GitHub ${since}` // years=0 时简化，不套"活跃 N 年"模板
+const labels = {
+  repos: t('stats.label.repos'),
+  stars: t('stats.label.stars'),
+  followers: t('stats.label.followers'),
+  forks: t('stats.label.forks'),
+  sinceTemplate: t('stats.since'), // 含 {since} {years} 占位
+  sinceFallback: `GitHub {since}`, // years=0 时简化
+  langDist: t('stats.langDist'),
+}
 ---
 
-{stats && (
-  <section class="stats container" id="stats">
-    <h2 class="section-title">{t('stats.title')}</h2>
-    <div class="grid">
-      {/* 数字统计卡 */}
-      <div class="card numbers">
-        <div class="number-grid">
-          <div class="stat-item">
-            <span class="num">{stats.public_repos}</span>
-            <span class="label">{t('stats.label.repos')}</span>
-          </div>
-          <div class="stat-item">
-            <span class="num">{stats.total_stars}</span>
-            <span class="label">{t('stats.label.stars')}</span>
-          </div>
-          <div class="stat-item">
-            <span class="num">{stats.followers}</span>
-            <span class="label">{t('stats.label.followers')}</span>
-          </div>
-          <div class="stat-item">
-            <span class="num">{stats.total_forks}</span>
-            <span class="label">{t('stats.label.forks')}</span>
-          </div>
-        </div>
-        <p class="since mono" set:html={sinceText}></p>
-      </div>
-
-      {/* 语言占比卡 */}
-      <div class="card langs">
-        <h3 class="card-label">{t('stats.langDist')}</h3>
-        <div class="lang-list">
-          {stats.languages.map((l) => (
-            <div class="lang-row">
-              <span class="lang-name">{l.name}</span>
-              <div class="lang-bar-wrap">
-                <div class="lang-bar" style={`width: ${l.pct}%`} />
-              </div>
-              <span class="lang-pct mono">{l.pct}%</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-)}
+<section class="stats container" id="stats">
+  <h2 class="section-title">{t('stats.title')}</h2>
+  <GitHubStatsVue client:load username={username} labels={labels} />
+</section>
 
 <style lang="scss">
 .stats {
@@ -161,124 +37,5 @@ const sinceText =
   font-size: var(--font-h1);
   font-weight: 700;
   margin-bottom: var(--space-4);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-}
-
-.card {
-  padding: var(--space-3);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
-/* ---------- 数字统计卡 ---------- */
-.numbers {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.number-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.num {
-  font-family: var(--font-mono);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-}
-
-.label {
-  font-size: var(--font-small);
-  color: var(--text-secondary);
-}
-
-.since {
-  margin-top: var(--space-3);
-  font-size: var(--font-small);
-  color: var(--text-muted);
-  text-align: right;
-}
-
-/* ---------- 语言占比卡 ---------- */
-.langs {
-  display: flex;
-  flex-direction: column;
-}
-
-.card-label {
-  font-size: var(--font-small);
-  color: var(--accent);
-  margin-bottom: var(--space-2);
-}
-
-.lang-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.lang-row {
-  display: grid;
-  grid-template-columns: 80px 1fr 40px;
-  align-items: center;
-  gap: var(--space-1);
-}
-
-.lang-name {
-  font-size: var(--font-small);
-  color: var(--text-secondary);
-}
-
-.lang-bar-wrap {
-  height: 8px;
-  background: var(--bg-elevated);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.lang-bar {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 4px;
-  transition: width 600ms ease;
-}
-
-.lang-pct {
-  font-size: var(--font-small);
-  color: var(--text-muted);
-  text-align: right;
-}
-
-/* ---------- 响应式 ---------- */
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .number-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2);
-  }
-  .num {
-    font-size: 1.6rem;
-  }
 }
 </style>
