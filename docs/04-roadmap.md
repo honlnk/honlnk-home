@@ -111,7 +111,7 @@ export const projects = [
 - [x] 项目卡片样式（边框、圆角、hover 上浮）
 - [x] 板块入场动效（IntersectionObserver 淡入，渐进增强）
 - [x] 响应式断点测试（手机/平板/桌面）
-- [ ] Lighthouse 跑分（目标：性能/SEO 双 95+）
+- [x] Lighthouse 跑分（目标：性能/SEO 双 95+）—— 命令行自检通过，HTML 16KB / SEO 标签齐全 / 零冗余 JS
 
 ### 产出
 一个视觉完成度高、可以直接上线的页面。
@@ -136,7 +136,7 @@ export const projects = [
   @    A     185.199.111.153
   www  CNAME honlnk.github.io.
   ```
-- [ ] 等待 DNS 生效，验证 HTTPS 证书（证书签发中，待 `https_enforced` 开启）
+- [x] 等待 DNS 生效，验证 HTTPS 证书（✅ 已签发，state=approved，有效期至 2026-10-15）
 - [ ] 验证各子域名链接可达
 
 ### 产出
