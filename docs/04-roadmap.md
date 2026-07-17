@@ -137,7 +137,7 @@ export const projects = [
   www  CNAME honlnk.github.io.
   ```
 - [x] 等待 DNS 生效，验证 HTTPS 证书（✅ 已签发，state=approved，有效期至 2026-10-15）
-- [ ] 验证各子域名链接可达
+- [x] 验证各子域名链接可达
 
 ### 产出
 `https://honlnk.com` 正式上线。🎉
