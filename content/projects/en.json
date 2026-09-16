@@ -3,8 +3,8 @@
     "name": "GPT Image Studio",
     "desc": "Local-first AI image creation workbench",
     "tech": ["TypeScript"],
-    "stars": 22,
-    "forks": 3,
+    "stars": 23,
+    "forks": 4,
     "url": "https://image.honlnk.com",
     "repo": "https://github.com/honlnk/gpt-image-studio",
     "featured": true
@@ -13,11 +13,30 @@
     "name": "NovAI",
     "desc": "Long-form novel AI writing workspace (RAG-powered)",
     "tech": ["TypeScript"],
-    "stars": 5,
+    "stars": 8,
     "forks": 1,
     "url": "https://novai.honlnk.com",
     "repo": "https://github.com/honlnk/NovAI",
     "featured": true
+  },
+  {
+    "name": "dsh-input-assist",
+    "desc": "Inline AI completion (FIM) and typo checking for DeepSeek Harness Web UI",
+    "tech": ["TypeScript"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://dsh-input-assist.honlnk.com",
+    "repo": "https://github.com/honlnk/dsh-input-assist",
+    "featured": true
+  },
+  {
+    "name": "MDOpener",
+    "desc": "A Markdown viewer app for Android",
+    "tech": ["Kotlin", "Android"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://github.com/honlnk/MDOpener",
+    "repo": "https://github.com/honlnk/MDOpener"
   },
   {
     "name": "linkseek",
@@ -27,5 +46,32 @@
     "forks": 0,
     "url": "https://linkseek.honlnk.com",
     "repo": "https://github.com/honlnk/linkseek"
+  },
+  {
+    "name": "picsense",
+    "desc": "Vision-based image analysis MCP server with multi-turn iteration",
+    "tech": ["TypeScript"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://picsense.honlnk.com",
+    "repo": "https://github.com/honlnk/picsense"
+  },
+  {
+    "name": "duet",
+    "desc": "Autonomous two-AI chat room: give two AIs a topic and let them talk",
+    "tech": ["JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://github.com/honlnk/duet",
+    "repo": "https://github.com/honlnk/duet"
+  },
+  {
+    "name": "zcode-prompt-sanitizer",
+    "desc": "Local proxy that sanitizes ZCode prompts to fix WAF false positives",
+    "tech": ["TypeScript"],
+    "stars": 1,
+    "forks": 1,
+    "url": "https://sanitize.honlnk.com",
+    "repo": "https://github.com/honlnk/zcode-prompt-sanitizer"
   }
 ]

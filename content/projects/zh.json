@@ -3,8 +3,8 @@
     "name": "GPT Image Studio",
     "desc": "本地优先的 AI 图片创作工作台",
     "tech": ["TypeScript"],
-    "stars": 22,
-    "forks": 3,
+    "stars": 23,
+    "forks": 4,
     "url": "https://image.honlnk.com",
     "repo": "https://github.com/honlnk/gpt-image-studio",
     "featured": true
@@ -13,11 +13,30 @@
     "name": "NovAI",
     "desc": "长篇小说 AI 写作工作空间（RAG 驱动）",
     "tech": ["TypeScript"],
-    "stars": 5,
+    "stars": 8,
     "forks": 1,
     "url": "https://novai.honlnk.com",
     "repo": "https://github.com/honlnk/NovAI",
     "featured": true
+  },
+  {
+    "name": "dsh-input-assist",
+    "desc": "DeepSeek Harness 输入助手：行内 AI 补全（FIM）+ 中文友好的错别字检查",
+    "tech": ["TypeScript"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://dsh-input-assist.honlnk.com",
+    "repo": "https://github.com/honlnk/dsh-input-assist",
+    "featured": true
+  },
+  {
+    "name": "MDOpener",
+    "desc": "Android Markdown 查看器 App，安装即用",
+    "tech": ["Kotlin", "Android"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://github.com/honlnk/MDOpener",
+    "repo": "https://github.com/honlnk/MDOpener"
   },
   {
     "name": "linkseek",
@@ -27,5 +46,32 @@
     "forks": 0,
     "url": "https://linkseek.honlnk.com",
     "repo": "https://github.com/honlnk/linkseek"
+  },
+  {
+    "name": "picsense",
+    "desc": "基于视觉的图像分析 MCP 服务，支持多轮迭代",
+    "tech": ["TypeScript"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://picsense.honlnk.com",
+    "repo": "https://github.com/honlnk/picsense"
+  },
+  {
+    "name": "duet",
+    "desc": "双 AI 自主对话聊天室：给两个 AI 话题与身份，让它们自己聊起来",
+    "tech": ["JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "url": "https://github.com/honlnk/duet",
+    "repo": "https://github.com/honlnk/duet"
+  },
+  {
+    "name": "zcode-prompt-sanitizer",
+    "desc": "本地反向代理：改写注入的 prompt，解决 Copilot / WorkBuddy 的 WAF 误拦截",
+    "tech": ["TypeScript"],
+    "stars": 1,
+    "forks": 1,
+    "url": "https://sanitize.honlnk.com",
+    "repo": "https://github.com/honlnk/zcode-prompt-sanitizer"
   }
 ]
